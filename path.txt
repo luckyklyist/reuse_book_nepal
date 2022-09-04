@@ -1,0 +1,40 @@
+Production properties for Reusebook webapp:
+    login via django all auth 
+    email authentication 
+    google and fb login 
+    complete the ads
+    HTMX integration
+    contact the admin people to buy product messaging way 
+    location integration
+    reply the questions from the costumer 
+    change the database to postgressql or Mysql
+    get .com.np free domain
+    upload to heroku
+
+
+bug:
+    django all auth google authentication
+
+Procees being hard to understand:
+    chat application being hard to made 
+
+bug fixed:
+    profile page not showning ads because of djangoallauth model --->bug fixed
+
+learning things for project :
+    HTMX
+    django channels
+
+completed task :
+    show the product -->completed
+    upload the product -->completed
+    create the profile -->completed
+    bug fixed no users allowed to enter over there -->completed
+    delete the product -->completed
+    edit the product -->completed
+    Redesing the website with Bootsrtrap css framework -->completed
+    ask the questions in the product detail page -->completed
+
+
+doing:
+    reply questions 

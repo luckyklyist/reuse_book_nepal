@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Banner Ends Here -->
+<div class="text-center h3 mt-4 mt-3">Search result :</div>
+<div class="services mt-3 mb-0">
+  <div class="container mt-2">
+    <div class="row ">
+      <div class="container">
+      </div>
+      {% for product in products %}
+      <div class="col-md-4 mb-3">
+        <div class="service-item">
+          <div class="down-content">
+            <h4>{{product.product_name}}</h4>
+            <img src="{{product.img.url}}" alt="Failed to load image">
+            <p>{{product.description}}</p>
+            <p>Price :{{product.price}}</p>
+            <a href="{%url 'book' product.slug%}" class="filled-button">Buy it</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+{% endblock content %}

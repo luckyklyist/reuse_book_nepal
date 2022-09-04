@@ -1,0 +1,115 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class="container">
+  <div class="row mt-4 mb-4 p-4">  
+    <div class="col-3 bg-light p-3 border rounded-4 ml-0">
+     <div class="product_img">
+      <img src="{{product.img.url}}" alt="" height="400" width="250">
+      <p>{{product.product_name}} image</p>
+     </div>
+    </div>
+    <div class="col-sm-9 bg-light p-3 border rounded-4">
+      <h3 class="text-center">Book name :{{product.product_name}}</h3>
+
+      <div class="accordion mt-3" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Product Details
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              {{product.description}}
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              Shipping details
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              Location to put over here :
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              About Seller:
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <h5>
+                Seller username:{{product.seller}}
+              </h5>
+              <p>View Seller Profile: <a href="">{{product.seller}}</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="price h4 mt-3 text-secondary ms-2">
+      Price :Rs {{product.price}}
+    </div>
+    <div class="mt-2 ms-2">
+      <div class="btn btn-success">Buy</div>
+      <div class="btn btn-secondary">Message Seller</div>
+    </div>
+    </div>
+  </div>
+
+  <div class="">
+    <!-- <div class="text-left">Ask Questions :</div> -->
+    <form action="" method="post">
+      {%csrf_token%}
+      <label for="ask" class="form-label">Ask here:</label>
+      <div class="d-flex">
+        <input type="text" class="form-control w-100" id="ask" name="ask" placeholder="ask seller a questions">
+        <input type="hidden" value="{{product.id}}" name="pk_id">
+        <button class="btn btn-primary w-25">Ask</button>
+      </div>
+    </form>
+    <div class="questions ">
+      {%for question in questions reversed%}
+      <p class="text-secondary h6 mb-0 mt-3 bg-light" style="height:40px;">
+        {{question.username}}: {{question.questions}}
+      </p>
+
+      <div class="ans">
+        {%for r in reply%}
+
+        {% if r.id_reply == question.id %}
+        <p class="text-secondary h6 mb-0 mt-3 bg-light ms-5 " style="height:40px;">
+          {{r.username}}:{{r.reply}}
+        </p>
+        {%endif%}
+        {%endfor%}
+      </div>
+
+
+      {%if request.user.username == product.seller%}
+        <div class="link " style="font-size:14px ;">
+          <form method="post" action="{%url 'reply' product.slug%}" class="ms-5 mt-2">
+            {%csrf_token%}
+            <input type="text" class="form-control" name="reply">
+            <input type="hidden" value="{{product.id}}" name="id">
+            {%for q in questions%}
+            <input type="hidden" value="{{q.id}}" name="id_question">
+            {%endfor%}
+            <button type="submit" class="btn btn-primary mt-2 btn-sm">Reply</button>
+          </form>
+        </div>
+      {%endif%}
+      {%endfor%}
+    
+    </div>
+    
+  </div>
+</div>
+{%endblock content%}
